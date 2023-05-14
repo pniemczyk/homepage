@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Rails Spotlight - Pricing Table</title>
+  <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500;700;900&display=swap");
+
+      :root {
+          --div-price-height: 60px;
+      }
+
+      body {
+          margin: 0;
+      }
+
+      /* CARD SECTION */
+      .card-section {
+          width: 100%;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .card-section * {
+          margin: 0;
+          padding: 0;
+      }
+
+      .card-section .card {
+          max-width: 330px;
+          width: 90%;
+          border-radius: 15px;
+          text-align: center;
+          font-family: "Roboto Slab", serif;
+          overflow: hidden;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+      }
+
+      .card {
+          margin-top: 55px;
+      }
+
+      .card-section .card .card-part {
+          position: relative;
+      }
+
+      .card-section .card .card-top,
+      .card-section .card .card-bottom {
+          transition: all 0.4s ease-in;
+          z-index: 10;
+      }
+
+      .card-section .card .card-top::before,
+      .card-section .card .card-bottom::before {
+          content: "";
+          position: absolute;
+          border-style: solid;
+          width: 100%;
+          left: 0;
+          box-sizing: border-box;
+      }
+
+      /* CARD TOP */
+      .card-section .card .card-top {
+          background-color: #0f1012;
+          border-radius: 15px 15px 0 0;
+          padding: 2.5rem 1.5rem 0 1.3rem;
+      }
+
+      .card-section .card:hover .card-top {
+          transform: translateY(calc(var(--div-price-height) * -1));
+      }
+
+      .card-section .card .card-top::before {
+          border-color: transparent transparent transparent #0f1012;
+          border-top-width: 0;
+          border-right-width: 0;
+          border-bottom-width: calc(var(--div-price-height));
+          border-left-width: 330px;
+          bottom: calc(var(--div-price-height) * -1);
+      }
+
+      .card-section .card .card-top .card-icon {
+          font-size: 70px;
+          color: #fff;
+          height: 70px;
+          width: 70px;
+          display: inline-block;
+          line-height: 50px;
+          border-radius: 50%;
+          background-color: #e84a5f;
+          margin-bottom: 15px;
+      }
+
+      .card-section .card .card-top .card-title {
+          font-size: 32px;
+          color: #ccc;
+      }
+
+      /* CARD CENTER */
+      .card-section .card .card-center {
+          height: var(--div-price-height);
+          line-height: var(--div-price-height);
+      }
+
+      .card-section .card .card-center .price {
+          font-size: 60px;
+      }
+
+      /* CARD BOTTOM */
+      .card-section .card .card-bottom {
+          padding: 0 1.3rem 2.5rem 1.3rem;
+          background-color: #2a2b2f;
+          border-radius: 0 0 15px 15px;
+      }
+
+      .card-section .card:hover .card-bottom {
+          transform: translateY(var(--div-price-height));
+      }
+
+      .card-section .card .card-bottom::before {
+          border-color: transparent #2a2b2f transparent transparent;
+          border-top-width: calc(var(--div-price-height) + 1px);
+          border-right-width: 330px;
+          border-bottom-width: 0;
+          border-left-width: 0;
+          top: calc(var(--div-price-height) * -1 - 1px);
+      }
+
+      .card-section .card .card-bottom .list-options {
+          list-style: none;
+      }
+
+      .card-section .card .card-bottom .list-options li {
+          font-size: 18px;
+          color: #7a7b7d;
+      }
+
+      .card-section .card .card-bottom .list-options li:not(:last-child) {
+          margin-bottom: 16px;
+      }
+
+      .card-section .card .card-bottom .btn-pay {
+          display: inline-block;
+          text-decoration: none;
+          margin-top: 35px;
+          width: 85%;
+          max-width: 190px;
+          padding: 0.8rem 1rem;
+          border-radius: 50px;
+          border: none;
+          font-size: 16px;
+          font-family: "Roboto Slab", serif;
+          background-color: green;
+          color: #fff;
+          cursor: pointer;
+          position: relative;
+          z-index: 15;
+          transition: all 0.4s ease-in;
+      }
+
+      .card-section .card:hover .card-bottom .btn-pay {
+          transform: translateY(calc(var(--div-price-height) * -1));
+      }
+
+      @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400&display=swap');
+      body {
+          height: 100vh;
+          margin: 0;
+          display: grid;
+          place-items: center;
+          background: #eee;
+          color: #333;
+          font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+
+      /** button group styles **/
+      .btn-group {
+          border-radius: 1rem;
+          box-shadow: -2.3px -2.3px 3.8px rgba(255, 255, 255, 0.2), -6.3px -6.3px 10.6px rgba(255, 255, 255, 0.3), -15.1px -15.1px 25.6px rgba(255, 255, 255, 0.4), -50px -50px 85px rgba(255, 255, 255, 0.07), 2.3px 2.3px 3.8px rgba(0, 0, 0, 0.024), 6.3px 6.3px 10.6px rgba(0, 0, 0, 0.035), 15.1px 15.1px 25.6px rgba(0, 0, 0, 0.046), 50px 50px 85px rgba(0, 0, 0, 0.07);
+      }
+
+      .btn-group__item {
+          border: none;
+          min-width: 6rem;
+          padding: 1rem 2rem;
+          background-color: #eee;
+          cursor: pointer;
+          margin: 0;
+          box-shadow: inset 0px 0px 0px -15px rebeccapurple;
+          transition: all 300ms ease-out;
+      }
+
+      .btn-group__item:last-child {
+          border-top-right-radius: 1rem;
+          border-bottom-right-radius: 1rem;
+      }
+
+      .btn-group__item:first-child {
+          border-top-left-radius: 1rem;
+          border-bottom-left-radius: 1rem;
+      }
+
+      .btn-group__item:hover, .btn-group__item:focus {
+          color: rebeccapurple;
+          box-shadow: inset 0px -20px 0px -15px rebeccapurple;
+      }
+
+      .btn-group__item:focus {
+          outline: none;
+      }
+
+      .btn-group__item:after {
+          margin-left: 0.5rem;
+          display: inline-block;
+          color: rebeccapurple;
+          position: absolute;
+          transform: translatey(10px);
+          opacity: 0;
+          transition: all 200ms ease-out;
+      }
+
+      .btn-group__item--active {
+          color: rebeccapurple;
+          box-shadow: inset 0px -20px 0px -15px rebeccapurple;
+      }
+
+      .btn-group__item--active:after {
+          opacity: 1;
+          transform: translatey(-2px);
+      }
+
+      .flex {
+          display: flex;
+      }
+
+      .hidden {
+          display: none;
+      }
+
+      .switcher-container {
+          margin-bottom: 8px;
+          position: absolute;
+          top: 0;
+      }
+  </style>
+</head>
+<body>
+<div class="btn-group switcher-container">
+  <button id="btn-yearly" data-tab="yearly" class="btn-group__item">Yearly</button>
+  <button id="btn-monthly" data-tab="monthly" class="btn-group__item btn-group__item--active">Monthly</button>
+  <button id="btn-custom" data-tab="one-time" class="btn-group__item">Custom</button>
+</div>
+<div id="monthly" class="tabs flex">
+  <section class="card-section" id="m-standard">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg style="padding: 6px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g
+            transform="translate(-71.09-24.1)"><path
+            d="m333.23 39.545l-54.916 83.02-56.76-83.02h111.68m-63.64 102h-121.83l60.908 231.67 60.921-231.67m-117.76-13.6h113.69l-56.847-83.15-56.841 83.15m-12.79-5.385l56.753-83.02h-111.67l54.917 83.02m56.725 255.02l-62.06-236.03h-133.7l195.76 236.03m-195.57-249.63h126.1l-54.931-83.03-71.17 83.03m345.7-82.89l-54.836 82.89h125.88l-71.05-82.89zm-62.25 96.48l-62.06 236.01 195.55-236.01h-133.48"
+            transform="matrix(.0355 0 0 .0355 71.67 24.704)" fill="#000" /></g></svg>
+        </span>
+        <h2 class="card-title">Standard</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">9</span>
+        <span class="time">/month</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+  <section class="card-section" id="m-sponsor">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg focusable="false" aria-hidden="true"
+               viewBox="0 0 24 24" data-testid="BrightnessHighIcon"><path
+            d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+        </span>
+        <h2 class="card-title">Sponsor</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">49</span>
+        <span class="time">/month</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+          <li>Mention on the sponsors list</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+  <section class="card-section" id="m-ads">
+    <div class="card">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <div class="card-part card-top">
+        <span class="card-icon">
+          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AdsClickIcon"><path
+            d="M11.71 17.99C8.53 17.84 6 15.22 6 12c0-3.31 2.69-6 6-6 3.22 0 5.84 2.53 5.99 5.71l-2.1-.63C15.48 9.31 13.89 8 12 8c-2.21 0-4 1.79-4 4 0 1.89 1.31 3.48 3.08 3.89l.63 2.1zM22 12c0 .3-.01.6-.04.9l-1.97-.59c.01-.1.01-.21.01-.31 0-4.42-3.58-8-8-8s-8 3.58-8 8 3.58 8 8 8c.1 0 .21 0 .31-.01l.59 1.97c-.3.03-.6.04-.9.04-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10zm-3.77 4.26L22 15l-10-3 3 10 1.26-3.77 4.27 4.27 1.98-1.98-4.28-4.26z"></path></svg>
+        </span>
+        <h2 class="card-title">Ads</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">249</span>
+        <span class="time">/month</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Publishing an ad</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="yearly" class="tabs hidden">
+  <section class="card-section" id="y-standard">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg style="padding: 6px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g
+            transform="translate(-71.09-24.1)"><path
+            d="m333.23 39.545l-54.916 83.02-56.76-83.02h111.68m-63.64 102h-121.83l60.908 231.67 60.921-231.67m-117.76-13.6h113.69l-56.847-83.15-56.841 83.15m-12.79-5.385l56.753-83.02h-111.67l54.917 83.02m56.725 255.02l-62.06-236.03h-133.7l195.76 236.03m-195.57-249.63h126.1l-54.931-83.03-71.17 83.03m345.7-82.89l-54.836 82.89h125.88l-71.05-82.89zm-62.25 96.48l-62.06 236.01 195.55-236.01h-133.48"
+            transform="matrix(.0355 0 0 .0355 71.67 24.704)" fill="#000" /></g></svg></span>
+        <h2 class="card-title">Standard</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">90</span>
+        <span class="time">/year</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+  <section class="card-section" id="y-sponsor">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg focusable="false"
+               aria-hidden="true" viewBox="0 0 24 24" data-testid="BrightnessHighIcon"><path
+            d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+        </span>
+        <h2 class="card-title">Sponsor</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">490</span>
+        <span class="time">/year</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+          <li>Mention on the sponsors list</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+  <section class="card-section" id="y-ads">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="AdsClickIcon"><path
+            d="M11.71 17.99C8.53 17.84 6 15.22 6 12c0-3.31 2.69-6 6-6 3.22 0 5.84 2.53 5.99 5.71l-2.1-.63C15.48 9.31 13.89 8 12 8c-2.21 0-4 1.79-4 4 0 1.89 1.31 3.48 3.08 3.89l.63 2.1zM22 12c0 .3-.01.6-.04.9l-1.97-.59c.01-.1.01-.21.01-.31 0-4.42-3.58-8-8-8s-8 3.58-8 8 3.58 8 8 8c.1 0 .21 0 .31-.01l.59 1.97c-.3.03-.6.04-.9.04-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10zm-3.77 4.26L22 15l-10-3 3 10 1.26-3.77 4.27 4.27 1.98-1.98-4.28-4.26z"></path></svg>
+        </span>
+        <h2 class="card-title">Ads</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">2490</span>
+        <span class="time">/year</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Publishing an ad</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="one-time" class="tabs hidden">
+  <section class="card-section" id="o-standard">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+          <svg focusable="false"
+               aria-hidden="true" viewBox="0 0 24 24" data-testid="AllInclusiveIcon"><path
+            d="M18.6 6.62c-1.44 0-2.8.56-3.77 1.53L12 10.66 10.48 12h.01L7.8 14.39c-.64.64-1.49.99-2.4.99-1.87 0-3.39-1.51-3.39-3.38S3.53 8.62 5.4 8.62c.91 0 1.76.35 2.44 1.03l1.13 1 1.51-1.34L9.22 8.2C8.2 7.18 6.84 6.62 5.4 6.62 2.42 6.62 0 9.04 0 12s2.42 5.38 5.4 5.38c1.44 0 2.8-.56 3.77-1.53l2.83-2.5.01.01L13.52 12h-.01l2.69-2.39c.64-.64 1.49-.99 2.4-.99 1.87 0 3.39 1.51 3.39 3.38s-1.52 3.38-3.39 3.38c-.9 0-1.76-.35-2.44-1.03l-1.14-1.01-1.51 1.34 1.27 1.12c1.02 1.01 2.37 1.57 3.82 1.57 2.98 0 5.4-2.41 5.4-5.38s-2.42-5.37-5.4-5.37z"></path></svg>
+        </span>
+        <h2 class="card-title">Standard</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">249</span>
+        <span class="time">/live-time</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+          <li>Mention on the sponsors list</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+  <section class="card-section" id="o-sponsor">
+    <div class="card">
+      <div class="card-part card-top">
+        <span class="card-icon">
+<svg focusable="false" aria-hidden="true"
+     viewBox="0 0 24 24" data-testid="BrightnessHighIcon"><path
+  d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"></path></svg>
+        </span>
+        <h2 class="card-title">Sponsor</h2>
+      </div>
+      <div class="card-part card-center">
+        <span class="sign">$</span>
+        <span class="price">49+</span>
+        <span class="time">/one-time</span>
+      </div>
+      <div class="card-part card-bottom">
+        <ul class="list-options">
+          <li>Free plugin updates</li>
+          <li>Access to all features</li>
+          <li>Mention on the sponsors list</li>
+        </ul>
+        <a class="btn-pay" target="_blank" href="https://buy.stripe.com/test_eVa3eF0B32zE1LG28e">My choice</a>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  var payButtons = document.querySelectorAll("a.btn-pay");
+  var params = new URL(document.location).searchParams;
+  var clientReferenceId = params.get("client_reference_id");
+  if (!clientReferenceId) {
+    alert('Ups! Something went wrong. Reference to your plugin is missing. Please try again.')
+    payButtons.forEach(function(link) {
+      link.href = '#'
+      link.removeAttribute('target')
+    });
+  }
+  var prefilledEmail = params.get("prefilled_email");
+  payButtons.forEach(function(link) {
+    link.href = link.href + "?client_reference_id=" + clientReferenceId + "&prefilled_email=" + prefilledEmail;
+  });
+  var buttons = document.querySelectorAll(".btn-group__item");
+  buttons.forEach(function(button) {
+    button.addEventListener("click", function(e) {
+      buttons.forEach(function(btn) {
+        return btn.classList.remove("btn-group__item--active");
+      });
+      var tabs = document.querySelectorAll(".tabs");
+      tabs.forEach(function(tab) {
+        tab.classList.remove("flex");
+        tab.classList.add("hidden");
+      });
+      var tabToActivate = document.querySelector("#" + e.target.dataset.tab);
+      tabToActivate.classList.remove("hidden");
+      tabToActivate.classList.add("flex");
+
+      button.classList.add("btn-group__item--active");
+    });
+  });
+  document.getElementById("btn-monthly").focus();
+</script>
+</body>
+</html>
