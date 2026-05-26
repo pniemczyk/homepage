@@ -1,1 +1,1785 @@
-https://github.com/pniemczyk/
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paweł Niemczyk · way2do.it</title>
+  <meta name="description" content="I turn rough ideas into working products — apps, automation, AI tooling, and prototypes. Zamieniam surowe pomysły w działające produkty." />
+  <meta name="author" content="Paweł Niemczyk" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://way2do.it/" />
+  <link rel="alternate" hreflang="pl" href="https://way2do.it/" />
+  <link rel="alternate" hreflang="en" href="https://way2do.it/" />
+  <link rel="alternate" hreflang="x-default" href="https://way2do.it/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://way2do.it/" />
+  <meta property="og:title" content="Paweł Niemczyk · way2do.it" />
+  <meta property="og:description" content="I turn rough ideas into working products — apps, automation, AI tooling, and prototypes built fast." />
+  <meta property="og:image" content="https://way2do.it/assets/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="way2do.it" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Paweł Niemczyk · way2do.it" />
+  <meta name="twitter:description" content="I turn rough ideas into working products — apps, automation, AI tooling, and prototypes." />
+  <meta name="twitter:image" content="https://way2do.it/assets/images/og-image.png" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/images/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+  <meta name="theme-color" content="#16292b" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link
+    rel="stylesheet"
+    href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,500,400&f[]=satoshi@700,500,400&display=swap"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Paweł Niemczyk",
+        "url": "https://way2do.it",
+        "email": "contact%2Bhomepage@way2do.it?subject=Hello%20from%20homepage&body=Hello%2C%20I%20found%20you%20on%20your%20website",
+        "sameAs": ["https://github.com/pniemczyk"],
+        "jobTitle": "Software Engineer & AI Consultant",
+        "knowsAbout": ["Ruby on Rails", "Artificial Intelligence", "Product Development", "MVP", "Fintech", "Healthcare", "Travel-tech"],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "way2do.it",
+          "url": "https://way2do.it"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "way2do.it",
+        "url": "https://way2do.it",
+        "description": "Software & AI — from idea to working product."
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────────────
+       1. DESIGN TOKENS
+    ───────────────────────────────────────────────────────────────────── */
+    :root {
+      color-scheme: light;
+
+      /* Surfaces */
+      --color-canvas:         oklch(98.5% 0.003 96);
+      --color-surface:        oklch(96%   0.004 96);
+      --color-band:           oklch(15%   0.030 195);
+      --color-band-card:      oklch(20%   0.025 195);
+
+      /* Text */
+      --color-ink:            oklch(13%   0.012 256);
+      --color-ink-muted:      oklch(52%   0.018 256);
+      --color-ink-faint:      oklch(72%   0.010 256);
+      --color-ink-on-dark:    oklch(94%   0.005 96);
+      --color-ink-muted-dark: oklch(65%   0.012 195);
+
+      /* Accent — warm amber */
+      --color-accent:         oklch(62%   0.140 52);
+      --color-accent-subtle:  oklch(94%   0.030 52);
+
+      /* Borders & rules */
+      --color-rule:           oklch(88%   0.005 96);
+      --color-border:         oklch(91%   0.004 96);
+      --color-border-dark:    oklch(28%   0.025 195);
+
+      /* Semantic */
+      --color-focus:          oklch(58%   0.160 252);
+
+      /* Typography */
+      --font-display: 'Cabinet Grotesk', 'Helvetica Neue', sans-serif;
+      --font-body:    'Satoshi', 'Helvetica Neue', sans-serif;
+      --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+
+      /* Type scale */
+      --text-hero:    clamp(3rem, 7vw + 1rem, 6rem);
+      --text-display: clamp(2.4rem, 5vw + 0.8rem, 4rem);
+      --text-section: clamp(1.8rem, 3.5vw, 3rem);
+      --text-heading: clamp(1.4rem, 2.5vw, 2rem);
+      --text-feature: 1.5rem;
+      --text-lead:    1.125rem;
+      --text-body:    1rem;
+      --text-button:  0.875rem;
+      --text-caption: 0.875rem;
+      --text-mono:    0.8125rem;
+      --text-micro:   0.75rem;
+
+      /* Spacing (8px base) */
+      --space-1:   0.25rem;
+      --space-2:   0.5rem;
+      --space-3:   0.75rem;
+      --space-4:   1rem;
+      --space-5:   1.25rem;
+      --space-6:   1.5rem;
+      --space-8:   2rem;
+      --space-10:  2.5rem;
+      --space-12:  3rem;
+      --space-16:  4rem;
+      --space-20:  5rem;
+      --space-24:  6rem;
+      --space-32:  8rem;
+
+      /* Radius */
+      --radius-xs:   0.25rem;
+      --radius-sm:   0.5rem;
+      --radius-md:   1rem;
+      --radius-lg:   1.375rem;
+      --radius-pill: 2rem;
+      --radius-full: 9999px;
+
+      /* Z-index */
+      --z-sticky: 200;
+
+      /* Easing (custom cubic-bezier only) */
+      --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out-crisp:  cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Durations */
+      --dur-fast:  200ms;
+      --dur-ui:    350ms;
+      --dur-page:  600ms;
+
+      /* Layout */
+      --container-max:    1200px;
+      --container-gutter: clamp(1rem, 4vw, 3rem);
+      --section-gap:      clamp(4rem, 10vw, 8rem);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       2. RESET & BASE
+    ───────────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      line-height: 1.6;
+      color: var(--color-ink);
+      background-color: var(--color-canvas);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       3. CONTAINER
+    ───────────────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-inline: auto;
+      padding-inline: var(--container-gutter);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       4. TYPOGRAPHY UTILITIES
+    ───────────────────────────────────────────────────────────────────── */
+    .text-mono-label {
+      font-family: var(--font-mono);
+      font-size: var(--text-mono);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      display: block;
+    }
+
+
+    .text-section {
+      font-family: var(--font-display);
+      font-size: var(--text-section);
+      font-weight: 500;
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+    }
+
+    .text-lead {
+      font-family: var(--font-body);
+      font-size: var(--text-lead);
+      line-height: 1.55;
+      color: var(--color-ink-muted);
+      max-width: 52ch;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       5. NAV
+    ───────────────────────────────────────────────────────────────────── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+      background-color: var(--color-canvas);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    .site-nav.is-scrolled { border-color: var(--color-rule); }
+
+    .site-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .site-nav__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+    }
+
+    .site-nav__mark { width: 36px; height: 36px; flex-shrink: 0; }
+
+    .site-nav__wordmark {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+      line-height: 1;
+    }
+
+    .site-nav__brand:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    .site-nav__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       6. LANGUAGE TOGGLE
+    ───────────────────────────────────────────────────────────────────── */
+    .lang-toggle {
+      background: none;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-sm);
+      padding: 0.3rem 0.6rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      cursor: pointer;
+      line-height: 1;
+      transition:
+        border-color var(--dur-fast) var(--ease-out-smooth),
+        color var(--dur-fast) var(--ease-out-smooth),
+        transform 80ms var(--ease-out-crisp);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .lang-toggle:hover {
+        border-color: var(--color-ink-muted);
+        color: var(--color-ink);
+      }
+    }
+
+    .lang-toggle:active {
+      transform: scale(0.94);
+      transition-duration: 60ms;
+    }
+
+    .lang-toggle:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       7. BUTTONS
+    ───────────────────────────────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0.625rem 1.375rem;
+      background-color: var(--color-ink);
+      color: var(--color-canvas);
+      font-family: var(--font-body);
+      font-size: var(--text-button);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition:
+        background-color var(--dur-fast) var(--ease-out-smooth),
+        transform var(--dur-fast) var(--ease-out-crisp);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+      transition-duration: 80ms;
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { background-color: oklch(20% 0.015 256); }
+    }
+
+    .btn-primary--on-dark {
+      background-color: var(--color-ink-on-dark);
+      color: var(--color-band);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary--on-dark:hover { background-color: oklch(88% 0.006 96); }
+    }
+
+    .link-secondary {
+      font-family: var(--font-body);
+      font-size: var(--text-button);
+      font-weight: 400;
+      color: var(--color-ink-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      transition: opacity var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    .link-secondary:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 4px;
+      border-radius: var(--radius-xs);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .link-secondary:hover { opacity: 0.55; }
+    }
+
+    .link-secondary:active { opacity: 0.35; }
+
+    .link-secondary--on-dark { color: var(--color-ink-muted-dark); }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       8. HERO STATUS CHIP
+    ───────────────────────────────────────────────────────────────────── */
+    .hero__status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-1) var(--space-3);
+      background-color: var(--color-accent-subtle);
+      border-radius: var(--radius-full);
+      border: 1px solid oklch(88% 0.045 52);
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      width: fit-content;
+    }
+
+    .hero__status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-full);
+      background-color: var(--color-accent);
+      flex-shrink: 0;
+      animation: pulse-dot 2.4s var(--ease-out-smooth) infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       9. HERO
+    ───────────────────────────────────────────────────────────────────── */
+    .hero { padding-block: var(--space-24); }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      min-height: 92dvh;
+      padding-block: var(--space-8);
+    }
+
+    .hero__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .hero__eyebrow-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: var(--text-hero);
+      font-weight: 700;
+      line-height: 1.00;
+      letter-spacing: -0.03em;
+      color: var(--color-ink);
+      max-width: 18ch;
+    }
+
+    .hero__lead {
+      font-family: var(--font-body);
+      font-size: var(--text-lead);
+      line-height: 1.6;
+      color: var(--color-ink-muted);
+      max-width: 52ch;
+    }
+
+    .hero__cta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .hero__media {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      aspect-ratio: 4 / 3;
+      background-color: var(--color-surface);
+    }
+
+    .hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--dur-ui) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .hero__media:hover img { transform: scale(1.02); }
+    }
+
+    @media (min-width: 1024px) {
+      .hero { padding-block: 0; }
+      .hero__grid {
+        grid-template-columns: 7fr 5fr;
+        gap: var(--space-16);
+        padding-block: var(--space-16);
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       10. SECTION SHARED
+    ───────────────────────────────────────────────────────────────────── */
+    .section { padding-block: var(--section-gap); }
+
+    .section--ruled { border-top: 1px solid var(--color-rule); }
+
+    .section__header { margin-bottom: var(--space-12); }
+
+    .section__meta { margin-top: var(--space-3); }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       11. PROJECTS
+    ───────────────────────────────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    @media (min-width: 640px) {
+      .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      }
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--color-canvas);
+      transition: transform var(--dur-fast) var(--ease-out-crisp);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .project-card:hover { transform: translateY(-4px); }
+      .project-card:hover .project-card__img { transform: scale(1.02); }
+    }
+
+    .project-card__media {
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background-color: var(--color-surface);
+      flex-shrink: 0;
+    }
+
+    .project-card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--dur-ui) var(--ease-out-smooth);
+    }
+
+    .project-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      padding: var(--space-6);
+      padding-top: var(--space-5);
+      flex: 1;
+    }
+
+    .project-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-heading);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--color-ink);
+      margin-top: var(--space-1);
+    }
+
+    .project-card__desc {
+      font-size: var(--text-body);
+      line-height: 1.6;
+      color: var(--color-ink-muted);
+      flex: 1;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       12. EXPERIENCE
+    ───────────────────────────────────────────────────────────────────── */
+    .experience__lead {
+      margin-top: var(--space-8);
+      max-width: 66ch;
+      font-size: var(--text-lead);
+      line-height: 1.65;
+      color: var(--color-ink-muted);
+    }
+
+    .experience-domains {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+      margin-top: var(--space-10);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--color-rule);
+    }
+
+    .experience-domain {
+      font-family: var(--font-mono);
+      font-size: var(--text-mono);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-ink-faint);
+      white-space: nowrap;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       13. COLLABORATION
+    ───────────────────────────────────────────────────────────────────── */
+    .collab-lead { margin-top: var(--space-6); }
+
+    .collab-list { margin-top: var(--space-10); }
+
+    .collab-list__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+      padding-block: var(--space-8);
+      border-top: 1px solid var(--color-rule);
+    }
+
+    .collab-list__item:last-child { border-bottom: 1px solid var(--color-rule); }
+
+    .collab-list__num {
+      min-width: 2rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .collab-list__icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .collab-list__content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .collab-list__title {
+      font-family: var(--font-display);
+      font-size: var(--text-heading);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      color: var(--color-ink);
+      line-height: 1.2;
+    }
+
+    .collab-list__desc {
+      font-size: var(--text-body);
+      line-height: 1.6;
+      color: var(--color-ink-muted);
+      max-width: 46ch;
+    }
+
+    .collab-media {
+      margin-top: var(--space-12);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+    }
+
+    .collab-media img { width: 100%; display: block; object-fit: cover; }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       14. CONTACT
+    ───────────────────────────────────────────────────────────────────── */
+    .section-contact {
+      background-color: var(--color-band);
+      padding-block: var(--section-gap);
+    }
+
+    .section-contact__inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .section-contact__headline {
+      font-family: var(--font-display);
+      font-size: var(--text-section);
+      font-weight: 500;
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+      color: var(--color-ink-on-dark);
+      max-width: 20ch;
+    }
+
+    .section-contact__sub {
+      color: var(--color-ink-muted-dark);
+      max-width: 44ch;
+    }
+
+    .section-contact__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       15. FOOTER
+    ───────────────────────────────────────────────────────────────────── */
+    .site-footer {
+      background-color: var(--color-band);
+      border-top: 1px solid var(--color-border-dark);
+    }
+
+    .site-footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: var(--space-8);
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .site-footer__copy {
+      font-family: var(--font-body);
+      font-size: var(--text-micro);
+      color: var(--color-ink-muted-dark);
+    }
+
+    .site-footer__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+
+    .site-footer__links a {
+      font-family: var(--font-mono);
+      font-size: var(--text-micro);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted-dark);
+      transition: opacity var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .site-footer__links a:hover { opacity: 0.6; }
+    }
+
+    .site-footer__links a:active { opacity: 0.35; }
+
+    .site-footer__links a:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       16. MUSIC PLAYER
+    ───────────────────────────────────────────────────────────────────── */
+    .music-player {
+      position: fixed;
+      bottom: var(--space-6);
+      right: var(--space-6);
+      z-index: calc(var(--z-sticky) - 1);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      background-color: var(--color-band);
+      border: 1px solid var(--color-border-dark);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.55rem 0.35rem 0.45rem;
+      opacity: 0.22;
+      transition: opacity var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player:hover { opacity: 1; }
+    }
+
+    .music-player.is-playing { opacity: 0.5; }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player.is-playing:hover { opacity: 1; }
+    }
+
+    .music-player__play {
+      background: none;
+      border: none;
+      color: var(--color-ink-muted-dark);
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      transition: color var(--dur-fast) var(--ease-out-smooth),
+                  transform 80ms var(--ease-out-crisp);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player__play:hover { color: var(--color-ink-on-dark); }
+    }
+
+    .music-player__play:active {
+      transform: scale(0.88);
+      transition-duration: 60ms;
+    }
+
+    .music-player__play:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+      border-radius: var(--radius-xs);
+    }
+
+    /* Animated equalizer bars — visible only while playing */
+    .music-player__bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    .music-player.is-playing .music-player__bars { opacity: 1; }
+
+    .music-player__bars span {
+      display: block;
+      width: 2px;
+      border-radius: 1px;
+      background-color: var(--color-accent);
+      transform-origin: bottom;
+      animation: bar-eq 0.75s var(--ease-out-smooth) infinite alternate;
+    }
+
+    .music-player__bars span:nth-child(1) { height: 8px;  animation-delay:   0ms; }
+    .music-player__bars span:nth-child(2) { height: 12px; animation-delay: 180ms; }
+    .music-player__bars span:nth-child(3) { height: 6px;  animation-delay:  90ms; }
+
+    @keyframes bar-eq {
+      from { transform: scaleY(0.2); }
+      to   { transform: scaleY(1);   }
+    }
+
+    /* Auto button */
+    .music-player__auto {
+      background: none;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--color-ink-faint);
+      cursor: pointer;
+      padding: 0.15rem 0.3rem;
+      border-radius: var(--radius-xs);
+      line-height: 1;
+      transition: color var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player__auto:hover { color: var(--color-ink-muted-dark); }
+    }
+
+    .music-player__auto[aria-pressed="true"] { color: var(--color-accent); }
+
+    .music-player__auto:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+
+    /* Info button */
+    .music-player__info {
+      background: none;
+      border: none;
+      color: var(--color-ink-faint);
+      cursor: pointer;
+      padding: 0.15rem 0.2rem;
+      border-radius: var(--radius-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player__info:hover { color: var(--color-ink-muted-dark); }
+    }
+
+    .music-player__info[aria-expanded="true"] { color: var(--color-ink-muted-dark); }
+
+    .music-player__info:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+
+    /* Attribution popover */
+    .music-player__popover {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      right: 0;
+      background-color: var(--color-band);
+      border: 1px solid var(--color-border-dark);
+      border-radius: var(--radius-md);
+      padding: var(--space-3) var(--space-4);
+      width: 252px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity var(--dur-fast) var(--ease-out-smooth),
+                  transform var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    .music-player__popover.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .music-player__popover-title {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-ink-on-dark);
+      margin: 0 0 var(--space-2);
+    }
+
+    .music-player__popover-line {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      color: var(--color-ink-muted-dark);
+      line-height: 1.5;
+      margin: 0 0 var(--space-1);
+    }
+
+    .music-player__popover-line:last-child { margin-bottom: 0; }
+
+    .music-player__popover a {
+      color: var(--color-ink-muted-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color var(--dur-fast) var(--ease-out-smooth);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .music-player__popover a:hover { color: var(--color-ink-on-dark); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .music-player__bars span { animation: none; height: 8px !important; }
+      .music-player__popover  { transition: none; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       17. ENTRANCE ANIMATIONS
+    ───────────────────────────────────────────────────────────────────── */
+    @keyframes enter-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-enter {
+      opacity: 0;
+      animation: enter-up var(--dur-page) var(--ease-out-smooth) both;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       17. SCROLL REVEAL
+    ───────────────────────────────────────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(8px);
+      transition:
+        opacity 500ms var(--ease-out-smooth),
+        transform 500ms var(--ease-out-smooth);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       18. REDUCED MOTION
+    ───────────────────────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      [data-reveal], .animate-enter {
+        opacity: 1;
+        transform: none;
+        animation: none;
+        transition: none;
+      }
+
+      .hero__status-dot { animation: none; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       19. RESPONSIVE
+    ───────────────────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .hero__grid { min-height: 85dvh; }
+
+      .hero__cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .collab-list__title { font-size: var(--text-feature); }
+    }
+
+    @media (max-width: 400px) {
+      .site-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+       NAV
+  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+  <header class="site-nav" id="site-nav">
+    <div class="container site-nav__inner">
+
+      <a href="/" class="site-nav__brand" aria-label="way2do.it">
+        <img
+          src="assets/images/logo-mark.svg"
+          class="site-nav__mark"
+          alt=""
+          width="36"
+          height="36"
+          aria-hidden="true"
+        />
+        <span class="site-nav__wordmark">way2do.it</span>
+      </a>
+
+      <div class="site-nav__actions">
+        <a href="#contact" class="btn-primary">
+          <span class="l-pl">Skontaktuj się</span>
+          <span class="l-en" hidden>Get in touch</span>
+        </a>
+        <button
+          class="lang-toggle"
+          id="lang-toggle"
+          aria-label="Switch to English"
+        >EN</button>
+      </div>
+
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         HERO
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+    <section class="hero" aria-labelledby="hero-headline">
+      <div class="container">
+        <div class="hero__grid">
+
+          <!-- Text column -->
+          <div class="hero__content">
+
+            <div class="hero__eyebrow-group">
+              <span
+                class="text-mono-label animate-enter"
+                style="--delay: 0ms"
+                aria-hidden="true"
+              >
+                <span class="l-pl">Oprogramowanie&nbsp;·&nbsp;AI</span>
+                <span class="l-en" hidden>Software&nbsp;·&nbsp;AI</span>
+              </span>
+            </div>
+
+            <h1
+              id="hero-headline"
+              class="hero__headline animate-enter"
+              style="--delay: 140ms"
+            >
+              <span class="l-pl">Zamieniam surowe<br />pomysły w&nbsp;działające<br />produkty.</span>
+              <span class="l-en" hidden>I&nbsp;turn rough ideas<br />into working<br />products.</span>
+            </h1>
+
+            <p class="hero__lead animate-enter" style="--delay: 240ms">
+              <span class="l-pl">Aplikacje, automatyzacje, narzędzia AI i&nbsp;prototypy tworzone szybko, testowane wcześnie i&nbsp;rozwijane otwarcie.</span>
+              <span class="l-en" hidden>Apps, automation, AI tooling, and prototypes built fast, tested early, and improved in public.</span>
+            </p>
+
+            <div class="hero__cta animate-enter" style="--delay: 360ms">
+              <a href="#contact" class="btn-primary">
+                <span class="l-pl">Skontaktuj się</span>
+                <span class="l-en" hidden>Get in touch</span>
+              </a>
+              <a href="#projects" class="link-secondary">
+                <span class="l-pl">Przejrzyj projekty</span>
+                <span class="l-en" hidden>View projects</span>
+                <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Media card column -->
+          <div class="hero__media animate-enter" style="--delay: 200ms">
+            <img
+              src="assets/images/home-hero-editorial-engineering.png"
+              alt="Engineering workspace with a dark product console and AI tools"
+              width="960"
+              height="720"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         PROJECTS
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+    <section
+      id="projects"
+      class="section section--ruled"
+      aria-labelledby="projects-heading"
+    >
+      <div class="container">
+
+        <header class="section__header">
+          <h2 id="projects-heading" class="text-section" data-reveal>
+            <span class="l-pl">Projekty</span>
+            <span class="l-en" hidden>Projects</span>
+          </h2>
+          <p class="text-mono-label section__meta" data-reveal style="--reveal-delay: 60ms">
+            <span class="l-pl">02&nbsp;produkty&nbsp;·&nbsp;w&nbsp;budowie</span>
+            <span class="l-en" hidden>02&nbsp;products&nbsp;·&nbsp;in&nbsp;progress</span>
+          </p>
+        </header>
+
+        <div class="projects-grid">
+
+          <!-- JagaVox -->
+          <article class="project-card" data-reveal style="--reveal-delay: 80ms">
+            <div class="project-card__media">
+              <img
+                class="project-card__img"
+                src="assets/images/project-jagavox-macos-voice.png"
+                alt="JagaVox — macOS menu bar app with voice interface and waveform"
+                width="800"
+                height="500"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-card__body">
+              <span class="text-mono-label">macOS&nbsp;·&nbsp;Menu Bar</span>
+              <h3 class="project-card__title">JagaVox</h3>
+              <p class="project-card__desc">
+                <span class="l-pl">Aplikacja macOS działająca w pasku menu, która zamienia Twój głos w działanie — bez odrywania rąk od klawiatury. Działa offline. Twoje dane zostają na Twoim Macu.</span>
+                <span class="l-en" hidden>A macOS menu-bar app that turns your voice into action — without leaving your keyboard. Works offline. Your data stays on your Mac.</span>
+              </p>
+              <a href="#contact" class="btn-primary">
+                <span class="l-pl">Dołącz do listy oczekujących</span>
+                <span class="l-en" hidden>Join the waitlist</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- FishMe -->
+          <article class="project-card" data-reveal style="--reveal-delay: 160ms">
+            <div class="project-card__media">
+              <img
+                class="project-card__img"
+                src="assets/images/project-fishme-mobile-anglers.png"
+                alt="FishMe — mobile app with fishing map, permits, and catch log"
+                width="800"
+                height="500"
+                loading="lazy"
+              />
+            </div>
+            <div class="project-card__body">
+              <span class="text-mono-label">iOS&nbsp;·&nbsp;Android&nbsp;·&nbsp;Web</span>
+              <h3 class="project-card__title">FishMe</h3>
+              <p class="project-card__desc">
+                <span class="l-pl">Aplikacja mobilna dla polskich wędkarzy. Zarządzaj zezwoleniami cyfrowo, rejestruj połowy, odkrywaj nowe łowiska i przeglądaj oferty prywatnych łowisk — bez papierów, bez stresu.</span>
+                <span class="l-en" hidden>A mobile app for Polish anglers. Manage permits digitally, log catches, discover fishing spots — no paperwork, no hassle.</span>
+              </p>
+              <a href="#contact" class="btn-primary">
+                <span class="l-pl">Dołącz do listy oczekujących</span>
+                <span class="l-en" hidden>Join the waitlist</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         EXPERIENCE
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+    <section
+      id="experience"
+      class="section section--ruled"
+      aria-labelledby="experience-heading"
+    >
+      <div class="container">
+
+        <h2 id="experience-heading" class="text-section" data-reveal>
+          <span class="l-pl">Doświadczenie w złożonych branżach</span>
+          <span class="l-en" hidden>Experience across complex business domains</span>
+        </h2>
+
+        <p class="experience__lead" data-reveal style="--reveal-delay: 60ms">
+          <span class="l-pl">Tworzyłem i rozwijałem oprogramowanie dla kadr i płac, fintechu, lotnictwa prywatnego, travel-techu, ochrony zdrowia, bankowości, świadczeń pracowniczych oraz dedykowanych platform biznesowych. Pracowałem przy silnikach rezerwacyjnych, płatnościach, dokumentach, formularzach podatkowych, infrastrukturze, integracjach medycznych, systemach cenowych, programach lojalnościowych i narzędziach wspieranych przez AI.</span>
+          <span class="l-en" hidden>I have built and supported software for payroll, fintech, private aviation, travel-tech, healthcare, banking, employee benefits, and custom business platforms. My work covered booking engines, payment flows, document systems, tax forms, infrastructure, medical integrations, pricing engines, loyalty systems, and AI-assisted tooling.</span>
+        </p>
+
+        <div class="experience-domains" data-reveal style="--reveal-delay: 120ms">
+          <span class="experience-domain">
+            <span class="l-pl">Kadry i płace</span>
+            <span class="l-en" hidden>Payroll</span>
+          </span>
+          <span class="experience-domain">Fintech</span>
+          <span class="experience-domain">
+            <span class="l-pl">Lotnictwo prywatne</span>
+            <span class="l-en" hidden>Private aviation</span>
+          </span>
+          <span class="experience-domain">Travel-tech</span>
+          <span class="experience-domain">
+            <span class="l-pl">Ochrona zdrowia</span>
+            <span class="l-en" hidden>Healthcare</span>
+          </span>
+          <span class="experience-domain">
+            <span class="l-pl">Bankowość</span>
+            <span class="l-en" hidden>Banking</span>
+          </span>
+          <span class="experience-domain">
+            <span class="l-pl">Świadczenia pracownicze</span>
+            <span class="l-en" hidden>Employee benefits</span>
+          </span>
+          <span class="experience-domain">
+            <span class="l-pl">Platformy dedykowane</span>
+            <span class="l-en" hidden>Custom platforms</span>
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         HOW I CAN HELP / WSPÓŁPRACA
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+    <section
+      id="collaboration"
+      class="section section--ruled"
+      aria-labelledby="collab-heading"
+    >
+      <div class="container">
+
+        <header class="section__header" style="margin-bottom: var(--space-8)">
+          <h2 id="collab-heading" class="text-section" data-reveal>
+            <span class="l-pl">Jak mogę pomóc</span>
+            <span class="l-en" hidden>How I can help</span>
+          </h2>
+          <p class="text-lead collab-lead" data-reveal style="--reveal-delay: 60ms">
+            <span class="l-pl">Pracuję z firmami, które chcą szybko przejść od pomysłu do działającego rozwiązania — bez przepalania czasu na zbędną złożoność.</span>
+            <span class="l-en" hidden>I work with companies that want to move from idea to working software quickly — without adding unnecessary complexity.</span>
+          </p>
+        </header>
+
+        <ul class="collab-list" role="list">
+
+          <li class="collab-list__item" data-reveal style="--reveal-delay: 0ms">
+            <span class="text-mono-label collab-list__num">01</span>
+            <img
+              src="assets/images/icon-mvp-build.svg"
+              class="collab-list__icon"
+              alt=""
+              width="40"
+              height="40"
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <div class="collab-list__content">
+              <span class="collab-list__title">
+                <span class="l-pl">Prototypy i MVP</span>
+                <span class="l-en" hidden>Prototypes and MVPs</span>
+              </span>
+              <p class="collab-list__desc">
+                <span class="l-pl">Szybkie wersje produktów, które można pokazać, przetestować i rozwijać dalej.</span>
+                <span class="l-en" hidden>Fast, focused product versions you can test, validate, and build on.</span>
+              </p>
+            </div>
+          </li>
+
+          <li class="collab-list__item" data-reveal style="--reveal-delay: 80ms">
+            <span class="text-mono-label collab-list__num">02</span>
+            <img
+              src="assets/images/icon-ai-automation.svg"
+              class="collab-list__icon"
+              alt=""
+              width="40"
+              height="40"
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <div class="collab-list__content">
+              <span class="collab-list__title">
+                <span class="l-pl">AI w istniejących produktach</span>
+                <span class="l-en" hidden>AI in existing products</span>
+              </span>
+              <p class="collab-list__desc">
+                <span class="l-pl">Praktyczne integracje AI tam, gdzie realnie usprawniają pracę, procesy lub UX.</span>
+                <span class="l-en" hidden>Practical AI integrations that improve workflows, processes, or user experience.</span>
+              </p>
+            </div>
+          </li>
+
+          <li class="collab-list__item" data-reveal style="--reveal-delay: 160ms">
+            <span class="text-mono-label collab-list__num">03</span>
+            <img
+              src="assets/images/icon-local-voice.svg"
+              class="collab-list__icon"
+              alt=""
+              width="40"
+              height="40"
+              aria-hidden="true"
+              loading="lazy"
+            />
+            <div class="collab-list__content">
+              <span class="collab-list__title">
+                <span class="l-pl">Konsultacje techniczne</span>
+                <span class="l-en" hidden>Technical consulting</span>
+              </span>
+              <p class="collab-list__desc">
+                <span class="l-pl">Wsparcie przy architekturze, wyborze technologii, automatyzacji i kierunku rozwoju produktu.</span>
+                <span class="l-en" hidden>Support with architecture, technology choices, automation, and product direction.</span>
+              </p>
+            </div>
+          </li>
+
+        </ul>
+
+        <!-- Capability visual band -->
+        <div class="collab-media" data-reveal style="--reveal-delay: 80ms">
+          <img
+            src="assets/images/capability-ai-delivery-system.png"
+            alt="Abstract diagram of a software delivery system — workflow, AI models, API, and deployment"
+            width="1200"
+            height="540"
+            loading="lazy"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         CONTACT
+    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+    <section
+      id="contact"
+      class="section-contact"
+      aria-labelledby="contact-heading"
+    >
+      <div class="container section-contact__inner">
+
+        <h2
+          id="contact-heading"
+          class="section-contact__headline"
+          data-reveal
+        >
+          <span class="l-pl">Zacznijmy razem</span>
+          <span class="l-en" hidden>Let's start together</span>
+        </h2>
+
+        <p
+          class="text-lead section-contact__sub"
+          data-reveal
+          style="--reveal-delay: 60ms"
+        >
+          <span class="l-pl">Otwarty na nowe projekty i współpracę.</span>
+          <span class="l-en" hidden>Open to new projects and collaborations.</span>
+        </p>
+
+        <div
+          class="section-contact__links"
+          data-reveal
+          style="--reveal-delay: 140ms"
+        >
+          <a
+            href="#contact"
+            class="btn-primary btn-primary--on-dark js-email-link"
+            data-u="contact"
+            data-d="way2do.it"
+          >
+            contact＠way2do.it
+          </a>
+          <a
+            href="https://github.com/pniemczyk/"
+            class="link-secondary link-secondary--on-dark"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile (opens in new tab)"
+          >
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+       FOOTER
+  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <span class="site-footer__copy">
+        &copy;&nbsp;2026&nbsp;way2do.it&nbsp;&middot;&nbsp;Paweł&nbsp;Niemczyk
+      </span>
+      <nav class="site-footer__links" aria-label="Social links">
+        <a
+          href="https://github.com/pniemczyk"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub (opens in new tab)"
+        >GitHub</a>
+        <a
+          href="https://rubygems.org/profiles/kido"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="RubyGems (opens in new tab)"
+        >RubyGems</a>
+        <a
+          href="https://www.linkedin.com/in/way2doit/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn (opens in new tab)"
+        >LinkedIn</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Music player — fixed bottom-right, low-profile by default -->
+  <div class="music-player" id="music-player" role="region" aria-label="Background music">
+    <button class="music-player__play" id="music-play" aria-label="Play background music" aria-pressed="false">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+        <path id="music-play-icon" d="M2.5 1.5l8 4.5-8 4.5V1.5z" fill="currentColor"/>
+      </svg>
+    </button>
+    <span class="music-player__bars" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+    <button class="music-player__auto" id="music-auto" aria-label="Toggle autoplay" aria-pressed="false">auto</button>
+    <button class="music-player__info" id="music-info" aria-label="Music attribution" aria-expanded="false" aria-controls="music-popover">
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="5" cy="5" r="4.5" stroke="currentColor" stroke-width="1"/>
+        <rect x="4.25" y="4" width="1.5" height="3.5" rx="0.5" fill="currentColor"/>
+        <circle cx="5" cy="2.5" r="0.75" fill="currentColor"/>
+      </svg>
+    </button>
+    <div class="music-player__popover" id="music-popover">
+      <p class="music-player__popover-title">Noise — Alex-Productions</p>
+      <p class="music-player__popover-line"><a href="https://onsound.eu/" target="_blank" rel="noopener noreferrer">onsound.eu</a></p>
+      <p class="music-player__popover-line">promoted by <a href="https://www.chosic.com/free-music/all/" target="_blank" rel="noopener noreferrer">chosic.com</a></p>
+      <p class="music-player__popover-line"><a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a></p>
+    </div>
+    <audio id="music-audio" src="assets/music/noise-long-version-chosic.com.mp3" preload="none"></audio>
+  </div>
+
+  <script>
+    /* ── Email obfuscation ───────────────────────────────────────────────── */
+    (function () {
+      document.querySelectorAll('.js-email-link').forEach(function (el) {
+        var addr = el.dataset.u + '@' + el.dataset.d;
+        el.href = 'mailto:' + addr + '?subject=%2Bhomepage';
+        el.textContent = el.dataset.u + '＠' + el.dataset.d;
+      });
+    })();
+
+    /* ── Scramble text engine ────────────────────────────────────────────── */
+    var SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var SCRAMBLE_MS    = 480;
+
+    function scrambleElements(elements) {
+      var items = [];
+      var chars = SCRAMBLE_CHARS;
+
+      elements.forEach(function (el) {
+        /*
+         * Walk only TEXT NODES — never touch element nodes like <br>.
+         * Layout stays stable throughout: line breaks and container dimensions
+         * remain exactly as the final rendered state, so no resize occurs.
+         */
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        var nodes  = [];
+        var node;
+        while ((node = walker.nextNode())) {
+          var text = node.data || '';
+          if (text.trim().length === 0) continue;
+          nodes.push({ node: node, original: text });
+        }
+        if (nodes.length === 0) return;
+        items.push({ nodes: nodes, done: false });
+      });
+
+      if (items.length === 0) return;
+
+      var start = performance.now();
+
+      function tick(now) {
+        var t       = Math.min((now - start) / SCRAMBLE_MS, 1);
+        var running = false;
+
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          if (item.done) continue;
+
+          var allResolved = true;
+
+          for (var n = 0; n < item.nodes.length; n++) {
+            var nd   = item.nodes[n];
+            var text = nd.original;
+            var len  = text.length;
+            var out  = '';
+
+            for (var j = 0; j < len; j++) {
+              var ch      = text[j];
+              var code    = text.charCodeAt(j);
+              /* Whitespace (space, nbsp, newline, cr) always shows correctly */
+              if (code === 32 || code === 160 || code === 10 || code === 13) {
+                out += ch;
+                continue;
+              }
+              /* Characters lock in left-to-right as t advances */
+              var threshold = ((j + 1) / len) * 0.82;
+              if (t >= threshold) {
+                out += ch;
+              } else {
+                allResolved = false;
+                out += chars[Math.floor(Math.random() * chars.length)];
+              }
+            }
+
+            nd.node.data = out; /* mutate text node only — <br> etc. untouched */
+          }
+
+          if (allResolved || t >= 1) {
+            /* Restore exact original text in every node */
+            for (var k = 0; k < item.nodes.length; k++) {
+              item.nodes[k].node.data = item.nodes[k].original;
+            }
+            item.done = true;
+          } else {
+            running = true;
+          }
+        }
+
+        if (running) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    /* ── Language toggle ─────────────────────────────────────────────────── */
+    (function () {
+      var lang      = 'pl';
+      var busy      = false;
+
+      try { lang = localStorage.getItem('lang') === 'en' ? 'en' : 'pl'; } catch (e) {}
+
+      function applyLang(l, animate) {
+        lang = l;
+        document.documentElement.lang = l;
+
+        var outSel = l === 'pl' ? '.l-en' : '.l-pl';
+        var inSel  = l === 'pl' ? '.l-pl' : '.l-en';
+
+        document.querySelectorAll(outSel).forEach(function (el) { el.hidden = true; });
+
+        var incoming = document.querySelectorAll(inSel);
+        incoming.forEach(function (el) { el.hidden = false; });
+
+        if (animate) {
+          scrambleElements(Array.from(incoming));
+        }
+
+        var btn = document.getElementById('lang-toggle');
+        if (btn) {
+          btn.textContent = l === 'pl' ? 'EN' : 'PL';
+          btn.setAttribute('aria-label', l === 'pl' ? 'Switch to English' : 'Zmień na polski');
+        }
+
+        try { localStorage.setItem('lang', l); } catch (e) {}
+      }
+
+      /* Initial load: instant, no animation */
+      applyLang(lang, false);
+
+      var btn = document.getElementById('lang-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          if (busy) return;
+          busy = true;
+          applyLang(lang === 'pl' ? 'en' : 'pl', true);
+          setTimeout(function () { busy = false; }, SCRAMBLE_MS + 80);
+        });
+      }
+    })();
+
+    /* ── Nav scroll border ───────────────────────────────────────────────── */
+    (function () {
+      var nav = document.getElementById('site-nav');
+      if (!nav) return;
+      function onScroll() {
+        nav.classList.toggle('is-scrolled', window.scrollY > 16);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+
+    /* ── Scroll reveal ───────────────────────────────────────────────────── */
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('[data-reveal]').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll('[data-reveal]').forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+
+    /* ── Music player ────────────────────────────────────────────────────── */
+    (function () {
+      var player  = document.getElementById('music-player');
+      var playBtn = document.getElementById('music-play');
+      var autoBtn = document.getElementById('music-auto');
+      var audio   = document.getElementById('music-audio');
+      var icon    = document.getElementById('music-play-icon');
+      if (!player || !playBtn || !audio) return;
+
+      var PLAY_D  = 'M2.5 1.5l8 4.5-8 4.5V1.5z';
+      var PAUSE_D = 'M2 1.5h3v9H2v-9zm5 0h3v9H7v-9z';
+      var KEY     = 'musicAutoplay';
+      var autoplay = false;
+      try { autoplay = localStorage.getItem(KEY) === '1'; } catch (e) {}
+
+      autoBtn.setAttribute('aria-pressed', autoplay ? 'true' : 'false');
+
+      /* Loop is tied to auto mode */
+      audio.loop = autoplay;
+
+      function setPlaying(on) {
+        player.classList.toggle('is-playing', on);
+        playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        playBtn.setAttribute('aria-label', on ? 'Pause background music' : 'Play background music');
+        if (icon) icon.setAttribute('d', on ? PAUSE_D : PLAY_D);
+      }
+
+      function tryPlay() {
+        audio.play().then(function () {
+          setPlaying(true);
+        }).catch(function () {
+          /* Browser blocked autoplay — retry on first user gesture */
+          var tried = false;
+          function onGesture() {
+            if (tried) return;
+            tried = true;
+            document.removeEventListener('click',      onGesture);
+            document.removeEventListener('touchstart', onGesture);
+            if (autoplay && audio.paused) {
+              audio.play().then(function () { setPlaying(true); }).catch(function () {});
+            }
+          }
+          document.addEventListener('click',      onGesture);
+          document.addEventListener('touchstart', onGesture, { passive: true });
+        });
+      }
+
+      playBtn.addEventListener('click', function () {
+        if (audio.paused) {
+          tryPlay();
+        } else {
+          audio.pause();
+          setPlaying(false);
+        }
+      });
+
+      autoBtn.addEventListener('click', function () {
+        autoplay = !autoplay;
+        audio.loop = autoplay;
+        autoBtn.setAttribute('aria-pressed', autoplay ? 'true' : 'false');
+        try { localStorage.setItem(KEY, autoplay ? '1' : '0'); } catch (e) {}
+      });
+
+      audio.addEventListener('pause', function () { setPlaying(false); });
+      audio.addEventListener('play',  function () { setPlaying(true);  });
+
+      if (autoplay) { tryPlay(); }
+
+      /* Info popover */
+      var infoBtn = document.getElementById('music-info');
+      var popover = document.getElementById('music-popover');
+
+      if (infoBtn && popover) {
+        function closePopover() {
+          popover.classList.remove('is-open');
+          infoBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        infoBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = popover.classList.toggle('is-open');
+          infoBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+
+        /* Close on outside click */
+        document.addEventListener('click', function () {
+          if (popover.classList.contains('is-open')) { closePopover(); }
+        });
+
+        /* Prevent clicks inside the popover from bubbling to document */
+        popover.addEventListener('click', function (e) { e.stopPropagation(); });
+
+        /* Close on Escape */
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && popover.classList.contains('is-open')) {
+            closePopover();
+            infoBtn.focus();
+          }
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

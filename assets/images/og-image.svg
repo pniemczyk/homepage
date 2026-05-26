@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">way2do.it social preview</title>
+  <desc id="desc">Editorial engineering social image for software and AI consulting.</desc>
+  <rect width="1200" height="630" fill="#f8f6f0"/>
+  <rect x="760" y="0" width="440" height="630" fill="#16292b"/>
+  <g transform="translate(92 92)">
+    <g transform="scale(.895833)">
+      <rect width="96" height="96" fill="#16292b"/>
+      <polygon fill="#f1eee7" points="18 59 29 59 43 41 55 55 76 28 76 46 60 68 50 68 43 59 36 68 18 68"/>
+      <polygon fill="#c66f2d" points="76 17 85 26 76 35 67 26"/>
+    </g>
+  </g>
+  <text x="92" y="242" fill="#15191f" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="700" letter-spacing="-3">way2do.it</text>
+  <text x="92" y="324" fill="#15191f" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="-1.5">Software and AI</text>
+  <text x="92" y="386" fill="#15191f" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" letter-spacing="-1.5">from idea to MVP.</text>
+  <text x="94" y="470" fill="#73706b" font-family="Arial, Helvetica, sans-serif" font-size="24">Practical product engineering, automation,</text>
+  <text x="94" y="506" fill="#73706b" font-family="Arial, Helvetica, sans-serif" font-size="24">and modern AI integration.</text>
+  <g transform="translate(820 118)">
+    <rect x="0" y="0" width="294" height="390" rx="22" fill="#203638" stroke="#486064"/>
+    <rect x="26" y="30" width="116" height="12" rx="6" fill="#f1eee7" opacity=".84"/>
+    <rect x="26" y="72" width="242" height="74" rx="12" fill="#172b2e"/>
+    <rect x="48" y="96" width="88" height="10" rx="5" fill="#c66f2d"/>
+    <rect x="48" y="118" width="168" height="8" rx="4" fill="#f1eee7" opacity=".45"/>
+    <rect x="26" y="170" width="242" height="74" rx="12" fill="#172b2e"/>
+    <rect x="48" y="194" width="152" height="10" rx="5" fill="#f1eee7" opacity=".76"/>
+    <rect x="48" y="216" width="104" height="8" rx="4" fill="#f1eee7" opacity=".36"/>
+    <rect x="26" y="268" width="110" height="88" rx="14" fill="#f1eee7"/>
+    <rect x="158" y="268" width="110" height="88" rx="14" fill="#c66f2d"/>
+  </g>
+</svg>
