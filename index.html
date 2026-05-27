@@ -1056,15 +1056,31 @@
       margin: 0 auto;
     }
 
+    .wl-modal[open] {
+      animation: wl-modal-in var(--dur-ui) var(--ease-out-crisp) both;
+    }
+
+    @keyframes wl-modal-in {
+      from { opacity: 0; transform: scale(0.97) translateY(6px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);   }
+    }
+
     .wl-modal__inner {
       display: flex;
       flex-direction: column;
+      height: 90dvh;
       max-height: 90dvh;
     }
 
     .wl-modal::backdrop {
       background: oklch(10% 0.01 256 / 0.60);
       backdrop-filter: blur(3px);
+      animation: wl-backdrop-in var(--dur-ui) var(--ease-out-smooth) both;
+    }
+
+    @keyframes wl-backdrop-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     .wl-modal__header {
@@ -1111,17 +1127,23 @@
     .wl-modal__body {
       flex: 1;
       min-height: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .wl-modal__frame {
-      width: 100%;
+      flex: 1;
+      min-height: 0;
+      position: relative;
     }
 
     .wl-modal__frame iframe {
-      display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
+      height: 100%;
+      display: block;
       border: none;
     }
   </style>
@@ -1532,24 +1554,24 @@
         <div id="wl-frame-jagavox" class="wl-modal__frame" hidden>
           <iframe
             data-src="https://docs.google.com/forms/d/e/1FAIpQLSfNmZXZFJp6WbSvDW8du0O6JSEplWaIBfC1WKJ_98_ApdHR6w/viewform?embedded=true"
-            height="715"
             title="JagaVox — waitlist form"
+            height="715"
           >Ładuję…</iframe>
         </div>
 
         <div id="wl-frame-fishme" class="wl-modal__frame" hidden>
           <iframe
             data-src="https://docs.google.com/forms/d/e/1FAIpQLScN7zg4h-bzecM-ThxKWdfoOWlww12jXRSlonpfaXDxbcsflg/viewform?embedded=true"
-            height="715"
             title="FishMe — waitlist form"
+            height="715"
           >Ładuję…</iframe>
         </div>
 
         <div id="wl-frame-contact" class="wl-modal__frame" hidden>
           <iframe
             data-src="https://docs.google.com/forms/d/e/1FAIpQLSdX_rKEj7KcZkdoL6flHXQPz5nel_obEiubNouUby47WKbJ_w/viewform?embedded=true"
-            height="949"
             title="Get in touch — contact form"
+             height="949"
           >Ładuję…</iframe>
         </div>
 
