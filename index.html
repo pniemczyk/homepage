@@ -1042,14 +1042,93 @@
         align-items: flex-start;
       }
     }
+
+    /* ── Waitlist / contact modal ──────────────────────────────── */
+    .wl-modal {
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0;
+      width: min(680px, 96vw);
+      max-height: 90dvh;
+      overflow: hidden;
+      background: var(--color-surface);
+      box-shadow: 0 8px 48px oklch(0% 0 0 / 0.28);
+      margin: 0 auto;
+    }
+
+    .wl-modal__inner {
+      display: flex;
+      flex-direction: column;
+      max-height: 90dvh;
+    }
+
+    .wl-modal::backdrop {
+      background: oklch(10% 0.01 256 / 0.60);
+      backdrop-filter: blur(3px);
+    }
+
+    .wl-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--color-rule);
+      flex-shrink: 0;
+    }
+
+    .wl-modal__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lead);
+      font-weight: 600;
+      color: var(--color-ink);
+      margin: 0;
+    }
+
+    .wl-modal__close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      color: var(--color-ink-muted);
+      font-size: 1.125rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: color var(--dur-fast) var(--ease-out-crisp),
+                  background var(--dur-fast) var(--ease-out-crisp);
+    }
+
+    .wl-modal__close:hover   { color: var(--color-ink); background: oklch(91% 0.004 96 / 0.6); }
+    .wl-modal__close:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+    }
+
+    .wl-modal__body {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .wl-modal__frame {
+      width: 100%;
+    }
+
+    .wl-modal__frame iframe {
+      display: block;
+      width: 100%;
+      border: none;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-       NAV
-  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
   <header class="site-nav" id="site-nav">
     <div class="container site-nav__inner">
 
@@ -1066,7 +1145,7 @@
       </a>
 
       <div class="site-nav__actions">
-        <a href="#contact" class="btn-primary">
+        <a href="#contact" class="btn-primary" data-modal-form="contact">
           <span class="l-pl">Skontaktuj się</span>
           <span class="l-en" hidden>Get in touch</span>
         </a>
@@ -1082,9 +1161,6 @@
 
   <main id="main-content">
 
-    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         HERO
-    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
     <section class="hero" aria-labelledby="hero-headline">
       <div class="container">
         <div class="hero__grid">
@@ -1118,7 +1194,7 @@
             </p>
 
             <div class="hero__cta animate-enter" style="--delay: 360ms">
-              <a href="#contact" class="btn-primary">
+              <a href="#contact" class="btn-primary" data-modal-form="contact">
                 <span class="l-pl">Skontaktuj się</span>
                 <span class="l-en" hidden>Get in touch</span>
               </a>
@@ -1147,9 +1223,6 @@
       </div>
     </section>
 
-    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         PROJECTS
-    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
     <section
       id="projects"
       class="section section--ruled"
@@ -1192,6 +1265,7 @@
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfNmZXZFJp6WbSvDW8du0O6JSEplWaIBfC1WKJ_98_ApdHR6w/viewform"
                 class="btn-primary"
+                data-modal-form="jagavox"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1223,6 +1297,7 @@
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLScN7zg4h-bzecM-ThxKWdfoOWlww12jXRSlonpfaXDxbcsflg/viewform"
                 class="btn-primary"
+                data-modal-form="fishme"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1236,9 +1311,6 @@
       </div>
     </section>
 
-    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         EXPERIENCE
-    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
     <section
       id="experience"
       class="section section--ruled"
@@ -1288,9 +1360,6 @@
       </div>
     </section>
 
-    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         HOW WE CAN HELP / WSPÓŁPRACA
-    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
     <section
       id="collaboration"
       class="section section--ruled"
@@ -1396,9 +1465,6 @@
       </div>
     </section>
 
-    <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         CONTACT
-    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
     <section
       id="contact"
       class="section-contact"
@@ -1432,6 +1498,7 @@
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSdX_rKEj7KcZkdoL6flHXQPz5nel_obEiubNouUby47WKbJ_w/viewform"
             class="btn-primary btn-primary--on-dark"
+            data-modal-form="contact"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1454,9 +1521,42 @@
 
   </main>
 
-  <!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-       FOOTER
-  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+  <dialog id="wl-modal" class="wl-modal" aria-modal="true" aria-labelledby="wl-modal-title">
+    <div class="wl-modal__inner">
+      <div class="wl-modal__header">
+        <h2 class="wl-modal__title" id="wl-modal-title"></h2>
+        <button class="wl-modal__close" id="wl-modal-close" aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="wl-modal__body">
+
+        <div id="wl-frame-jagavox" class="wl-modal__frame" hidden>
+          <iframe
+            data-src="https://docs.google.com/forms/d/e/1FAIpQLSfNmZXZFJp6WbSvDW8du0O6JSEplWaIBfC1WKJ_98_ApdHR6w/viewform?embedded=true"
+            height="715"
+            title="JagaVox — waitlist form"
+          >Ładuję…</iframe>
+        </div>
+
+        <div id="wl-frame-fishme" class="wl-modal__frame" hidden>
+          <iframe
+            data-src="https://docs.google.com/forms/d/e/1FAIpQLScN7zg4h-bzecM-ThxKWdfoOWlww12jXRSlonpfaXDxbcsflg/viewform?embedded=true"
+            height="715"
+            title="FishMe — waitlist form"
+          >Ładuję…</iframe>
+        </div>
+
+        <div id="wl-frame-contact" class="wl-modal__frame" hidden>
+          <iframe
+            data-src="https://docs.google.com/forms/d/e/1FAIpQLSdX_rKEj7KcZkdoL6flHXQPz5nel_obEiubNouUby47WKbJ_w/viewform?embedded=true"
+            height="949"
+            title="Get in touch — contact form"
+          >Ładuję…</iframe>
+        </div>
+
+      </div>
+    </div>
+  </dialog>
+
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <span class="site-footer__copy">
@@ -1786,6 +1886,78 @@
           if (e.key === 'Escape' && popover.classList.contains('is-open')) {
             closePopover();
             infoBtn.focus();
+          }
+        });
+      }
+    })();
+
+    /* ── Waitlist / contact modal ──────────────────────────────── */
+    (function () {
+      var modal = document.getElementById('wl-modal');
+      if (!modal || typeof modal.showModal !== 'function') return;
+
+      var closeBtn  = document.getElementById('wl-modal-close');
+      var titleEl   = document.getElementById('wl-modal-title');
+      var frames    = {
+        jagavox: document.getElementById('wl-frame-jagavox'),
+        fishme:  document.getElementById('wl-frame-fishme'),
+        contact: document.getElementById('wl-frame-contact')
+      };
+      var titles = {
+        jagavox: { pl: 'Lista oczekujących — JagaVox', en: 'Waitlist — JagaVox' },
+        fishme:  { pl: 'Lista oczekujących — FishMe',  en: 'Waitlist — FishMe'  },
+        contact: { pl: 'Napisz do nas',                en: 'Get in touch'        }
+      };
+      var activeKey = null;
+
+      function currentLang() {
+        return document.documentElement.lang || 'pl';
+      }
+
+      function openModal(key) {
+        activeKey = key;
+        Object.keys(frames).forEach(function (k) {
+          if (frames[k]) frames[k].hidden = true;
+        });
+        var frame = frames[key];
+        if (!frame) return;
+        frame.hidden = false;
+        var iframe = frame.querySelector('iframe');
+        if (iframe && !iframe.src && iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+        }
+        if (titleEl && titles[key]) {
+          var lang = currentLang();
+          titleEl.textContent = titles[key][lang] || titles[key]['pl'];
+        }
+        modal.showModal();
+      }
+
+      function closeModal() {
+        modal.close();
+      }
+
+      document.querySelectorAll('[data-modal-form]').forEach(function (trigger) {
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          openModal(trigger.getAttribute('data-modal-form'));
+        });
+      });
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+      }
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+
+      var langToggle = document.getElementById('lang-toggle');
+      if (langToggle) {
+        langToggle.addEventListener('click', function () {
+          if (activeKey && titleEl && titles[activeKey]) {
+            var lang = currentLang();
+            titleEl.textContent = titles[activeKey][lang] || titles[activeKey]['pl'];
           }
         });
       }
