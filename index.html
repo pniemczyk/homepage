@@ -170,6 +170,21 @@
     }
 
     /* ─────────────────────────────────────────────────────────────────────
+       1b. DARK THEME TOKENS
+    ───────────────────────────────────────────────────────────────────── */
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --color-canvas:        oklch(10%   0.020 195);
+      --color-surface:       oklch(14%   0.022 195);
+      --color-ink:           oklch(94%   0.005 96);
+      --color-ink-muted:     oklch(65%   0.012 195);
+      --color-ink-faint:     oklch(40%   0.015 195);
+      --color-accent-subtle: oklch(18%   0.045 52);
+      --color-rule:          oklch(22%   0.020 195);
+      --color-border:        oklch(20%   0.020 195);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────
        2. RESET & BASE
     ───────────────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -321,6 +336,49 @@
       outline: 2px solid var(--color-focus);
       outline-offset: 3px;
     }
+
+    /* ─────────────────────────────────────────────────────────────────────
+       6b. THEME TOGGLE
+    ───────────────────────────────────────────────────────────────────── */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-sm);
+      padding: 0.3rem 0.45rem;
+      color: var(--color-ink-muted);
+      cursor: pointer;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        border-color var(--dur-fast) var(--ease-out-smooth),
+        color var(--dur-fast) var(--ease-out-smooth),
+        transform 80ms var(--ease-out-crisp);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .theme-toggle:hover {
+        border-color: var(--color-ink-muted);
+        color: var(--color-ink);
+      }
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.94);
+      transition-duration: 60ms;
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    /* Moon shown in light mode, Sun shown in dark mode */
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 
     /* ─────────────────────────────────────────────────────────────────────
        7. BUTTONS
@@ -1157,6 +1215,10 @@
       border: none;
     }
   </style>
+  <!-- Anti-FOUC: set theme before first paint -->
+  <script>
+    (function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+  </script>
 </head>
 
 <body>
@@ -1181,6 +1243,21 @@
           <span class="l-pl">Skontaktuj się</span>
           <span class="l-en" hidden>Get in touch</span>
         </a>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Switch to dark mode"
+        >
+          <!-- Moon icon: visible in light mode -->
+          <svg class="icon-moon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+            <path d="M10.8 9.8A5.5 5.5 0 0 1 4.2 3.2 5.5 5.5 0 1 0 10.8 9.8Z"/>
+          </svg>
+          <!-- Sun icon: visible in dark mode -->
+          <svg class="icon-sun" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="7" cy="7" r="2.6" fill="currentColor"/>
+            <path d="M7 0.5v2M7 11.5v2M0.5 7h2M11.5 7h2M2.6 2.6l1.4 1.4M10 10l1.4 1.4M11.4 2.6l-1.4 1.4M4 10l-1.4 1.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>
         <button
           class="lang-toggle"
           id="lang-toggle"
@@ -1740,6 +1817,32 @@
 
       requestAnimationFrame(tick);
     }
+
+    /* ── Theme toggle ────────────────────────────────────────────────────── */
+    (function () {
+      var KEY   = 'theme';
+      var theme = document.documentElement.getAttribute('data-theme') || 'light';
+
+      function applyTheme(t) {
+        theme = t;
+        document.documentElement.setAttribute('data-theme', t);
+        var btn = document.getElementById('theme-toggle');
+        if (btn) {
+          btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+        try { localStorage.setItem(KEY, t); } catch (e) {}
+      }
+
+      /* Sync aria-label on initial load */
+      applyTheme(theme);
+
+      var btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          applyTheme(theme === 'dark' ? 'light' : 'dark');
+        });
+      }
+    })();
 
     /* ── Language toggle ─────────────────────────────────────────────────── */
     (function () {
