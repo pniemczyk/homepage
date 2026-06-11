@@ -34,7 +34,7 @@
   <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/images/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
-  <meta name="theme-color" content="#16292b" />
+  <meta name="theme-color" content="#fbfaf7" id="theme-color" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://api.fontshare.com" />
@@ -106,6 +106,11 @@
       --color-rule:           oklch(88%   0.005 96);
       --color-border:         oklch(91%   0.004 96);
       --color-border-dark:    oklch(28%   0.025 195);
+
+      /* Interactive states */
+      --color-primary-hover:  oklch(20%   0.015 256);
+      --color-accent-border:  oklch(88%   0.045 52);
+      --color-control-hover:  oklch(91%   0.004 96 / 0.6);
 
       /* Semantic */
       --color-focus:          oklch(58%   0.160 252);
@@ -182,6 +187,9 @@
       --color-accent-subtle: oklch(18%   0.045 52);
       --color-rule:          oklch(22%   0.020 195);
       --color-border:        oklch(20%   0.020 195);
+      --color-primary-hover: oklch(86%   0.006 96);
+      --color-accent-border: oklch(35%   0.070 52);
+      --color-control-hover: oklch(22%   0.020 195 / 0.8);
     }
 
     /* ─────────────────────────────────────────────────────────────────────
@@ -189,7 +197,10 @@
     ───────────────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { -webkit-text-size-adjust: 100%; }
+    html {
+      -webkit-text-size-adjust: 100%;
+      background-color: var(--color-canvas);
+    }
 
     body {
       font-family: var(--font-body);
@@ -414,7 +425,7 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      .btn-primary:hover { background-color: oklch(20% 0.015 256); }
+      .btn-primary:hover { background-color: var(--color-primary-hover); }
     }
 
     .btn-primary--on-dark {
@@ -461,7 +472,7 @@
       padding: var(--space-1) var(--space-3);
       background-color: var(--color-accent-subtle);
       border-radius: var(--radius-full);
-      border: 1px solid oklch(88% 0.045 52);
+      border: 1px solid var(--color-accent-border);
       font-family: var(--font-mono);
       font-size: var(--text-micro);
       font-weight: 500;
@@ -1186,7 +1197,7 @@
                   background var(--dur-fast) var(--ease-out-crisp);
     }
 
-    .wl-modal__close:hover   { color: var(--color-ink); background: oklch(91% 0.004 96 / 0.6); }
+    .wl-modal__close:hover   { color: var(--color-ink); background: var(--color-control-hover); }
     .wl-modal__close:focus-visible {
       outline: 2px solid var(--color-focus);
       outline-offset: 2px;
@@ -1217,7 +1228,22 @@
   </style>
   <!-- Anti-FOUC: set theme before first paint -->
   <script>
-    (function(){try{var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+    (function () {
+      var theme = 'light';
+      var stored = null;
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      if (stored === 'dark' || stored === 'light') {
+        theme = stored;
+      } else {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      var root = document.documentElement;
+      var meta = document.getElementById('theme-color');
+      root.setAttribute('data-theme', theme);
+      if (meta) {
+        meta.content = theme === 'dark' ? '#07191a' : '#fbfaf7';
+      }
+    })();
   </script>
 </head>
 
@@ -1247,6 +1273,7 @@
           class="theme-toggle"
           id="theme-toggle"
           aria-label="Switch to dark mode"
+          aria-pressed="false"
         >
           <!-- Moon icon: visible in light mode -->
           <svg class="icon-moon" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
@@ -1820,28 +1847,72 @@
 
     /* ── Theme toggle ────────────────────────────────────────────────────── */
     (function () {
-      var KEY   = 'theme';
-      var theme = document.documentElement.getAttribute('data-theme') || 'light';
+      var KEY        = 'theme';
+      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      var root       = document.documentElement;
+      var meta       = document.getElementById('theme-color');
+      var btn        = document.getElementById('theme-toggle');
+      var initial    = root.getAttribute('data-theme');
+      var theme      = initial === 'dark' || initial === 'light' ? initial : 'light';
 
-      function applyTheme(t) {
+      function storedTheme() {
+        try {
+          var stored = localStorage.getItem(KEY);
+          return stored === 'dark' || stored === 'light' ? stored : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function applyTheme(t, persist) {
+        if (t !== 'dark' && t !== 'light') {
+          t = mediaQuery.matches ? 'dark' : 'light';
+        }
         theme = t;
-        document.documentElement.setAttribute('data-theme', t);
-        var btn = document.getElementById('theme-toggle');
+        root.setAttribute('data-theme', t);
+        if (meta) {
+          meta.content = t === 'dark' ? '#07191a' : '#fbfaf7';
+        }
         if (btn) {
           btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+          var pressed = t === 'dark' ? 'true' : 'false';
+          if (btn.getAttribute('aria-pressed') !== pressed) {
+            btn.setAttribute('aria-pressed', pressed);
+          }
         }
-        try { localStorage.setItem(KEY, t); } catch (e) {}
+        if (persist) {
+          try {
+            localStorage.setItem(KEY, t);
+          } catch (e) {
+            console.warn('Unable to persist theme preference.', e);
+          }
+        }
       }
 
-      /* Sync aria-label on initial load */
-      applyTheme(theme);
+      /* Sync controls without turning the system preference into an override. */
+      applyTheme(theme, false);
 
-      var btn = document.getElementById('theme-toggle');
       if (btn) {
         btn.addEventListener('click', function () {
-          applyTheme(theme === 'dark' ? 'light' : 'dark');
+          applyTheme(theme === 'dark' ? 'light' : 'dark', true);
         });
       }
+
+      function syncSystemTheme(event) {
+        if (!storedTheme()) applyTheme(event.matches ? 'dark' : 'light', false);
+      }
+
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', syncSystemTheme);
+      } else {
+        mediaQuery.addListener(syncSystemTheme);
+      }
+
+      window.addEventListener('storage', function (event) {
+        if (event.key !== KEY) return;
+        var stored = storedTheme();
+        applyTheme(stored || (mediaQuery.matches ? 'dark' : 'light'), false);
+      });
     })();
 
     /* ── Language toggle ─────────────────────────────────────────────────── */
